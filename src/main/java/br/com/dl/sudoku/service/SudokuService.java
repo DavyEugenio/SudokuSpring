@@ -28,8 +28,6 @@ public class SudokuService {
     public Result solveGame(Board board, int attempts) {
         List<Cell> notDef = new ArrayList<>();
         notDef.addAll(board.getCells().stream().filter(c-> !c.isDef()).toList());
-        
-        
         int cont = 0;
         while (!notDef.isEmpty() && cont < attempts) {
         	List<Cell> defs = new ArrayList<>();
@@ -61,7 +59,7 @@ public class SudokuService {
             notDef.removeAll(defs);
             defs.clear();
         }
-        return new Result(board.getCells(), !notDef.isEmpty(), cont);
+        return new Result(board.getCells(), notDef.isEmpty(), cont);
     }
     
     private void getNotIncludes(List<Cell> list, Cell c, Set<Integer> notIncludes){

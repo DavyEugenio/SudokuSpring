@@ -7,10 +7,10 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 		rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css?hfhf">
 </head>
 
-<body>
+<body onload="createCells()">
 	<div id="about-container">
 		<div id="brand">
 			<img src="imgs/sudoku.jpg" alt="Sudoku">
@@ -43,21 +43,25 @@
 			<table id="board" class="board-table"></table>
 		</form>
 	</div>
-	
-	</div>
+	<style>
+		
+	</style>
 	<div class="sidenav">
 		<input id="iAttempts" class="sidenav-item" type="number" placeholder="N° de Tentativas" value="10">
-		<div id="btnSend" class="sidenav-item" onclick="getResult()">Enviar</div>
+		<div id="btnSend" class="sidenav-item" onclick="sendBoardValues()">Enviar</div>
+		<div id="btnReset" class="sidenav-item" onclick="reset()">Limpar</div>
+		<div id="btnSend" class="sidenav-item" onclick="sendFile()">Enviar Arquivo</div>
+		<input type="file" id="iFile" name="ifile">
 		<div class="">
 			<div id="caminho"></div>
 			<label>Tentativas:</label>
-			<div id="distancia">0</div>
+			<p id="resultAttempts">-</p>
 		</div>
 	</div>
 </body>
 
 
 <script src="js/errorhandler.js"></script>
-<script src="js/index.js"></script>
+<script src="js/index.js?hfhf"></script>
 
 </html>

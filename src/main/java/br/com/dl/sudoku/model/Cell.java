@@ -87,6 +87,6 @@ public class Cell {
         if(def)
             return "Cell{" + "id=" + id + ", numbers=" + numbers + ", def=" + def + '}';
         else
-            return "Cell{" + "id=" + id + '}';
+            return "Cell{" + "id=" + id + ", def=" + def + '}';
     }
 }

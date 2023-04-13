@@ -1,41 +1,102 @@
 let listCells = [];
 let iAttempts = document.getElementById("iAttempts");
+let iFile = document.getElementById("iFile");
+let resultAttempts = document.getElementById("resultAttempts");
 let board = document.getElementById("board");
-createCells();
-function createCells(){
-	for(let i =0; i<9;i++){
+
+iFile.onchange = async function(e) {
+	e.preventDefault();
+	lerArquivo(inputGrafo.files[0]);
+	inputGrafo.value = "";
+
+}
+
+function sendFile() {
+	iFile.click();
+}
+
+iFile.onchange = async function(e) {
+	e.preventDefault();
+	readFile(iFile.files[0]);
+	iFile.value = "";
+}
+
+function readFile(file) {
+	let reader = new FileReader();
+	reader.onload = onReaderLoad;
+	reader.readAsText(file);
+}
+
+function onReaderLoad(event) {
+	let readResult = JSON.parse(event.target.result);
+	getResult(readResult);
+	for (let i = 0; i < 81; i++) {
+		if (readResult.cells[i] != 0)
+			document.getElementById("cell-" + i).style.backgroundColor = "#ccc";
+	}
+}
+
+function initCell(index) {
+	let cell = document.getElementById("cell-" + index);
+	cell.style.backgroundColor = "initial";
+	cell.value = "";
+	cell.disabled = false;
+}
+
+function reset() {
+	for (let i = 0; i < 81; i++) {
+		initCell(i);
+	}
+	iAttempts.value = 10;
+	resultAttempts.innerHTML = "-";
+	resultAttempts.style.backgroundColor = "initial";
+}
+
+function createCells() {
+	for (let i = 0; i < 9; i++) {
 		let tr = document.createElement("TR");
-		for(let j = 0; j< 9; j++){
+		for (let j = 0; j < 9; j++) {
 			let input = document.createElement("INPUT");
-			if(i>0 & i%3 == 0)
+			if (i > 0 & i % 3 == 0)
 				input.classList.add("vert-border");
-			if(j<8 & j%3 == 2)
+			if (j < 8 & j % 3 == 2)
 				input.classList.add("hori-border");
-			let index = (i*9+j);
-			input.id = "cell" + index;
-			input.name = "cell" + i;
+			let index = (i * 9 + j);
+			input.id = "cell-" + index;
+			input.name = "cell-" + index;
 			input.max = 9;
-			input.min = 0;
+			input.min = 1;
 			input.type = "number";
-			input.value = 0;
+			input.value = "";
 			input.onchange = () => {
-				if (this.value > this.max)
-				this.value = 9;
+				if (!(input.value >= 1 && input.value <= 9 && Number(input.value))) {
+					if (input.value != "") {
+						input.value = "";
+						alert("Insira valor valido");
+					}
+				}
 			}
 			let td = document.createElement("TD");
-			td.id = "cell" + index;
+			td.id = "td-" + index;
 			td.appendChild(input);
 			tr.appendChild(td);
 		}
 		board.appendChild(tr);
 	}
-}//@RequestBody List<Integer> cells, @RequestBody int attempts
+}
 
 function getCellValues() {
-	let values = []; 
-	for(let i=0; i<81; i++){
-		let value = document.getElementById("cell" + i).value; 
-		values.push((value <= 9 && value >= 0)? value: 0);
+	let values = [];
+	for (let i = 0; i < 81; i++) {
+		let cell = document.getElementById("cell-" + i);
+		let value = cell.value;
+		if (value >= 0 && value <= 9 && Number(value)) {
+			values.push(value);
+			cell.style.backgroundColor = "#ccc";
+		} else {
+			values.push(0);
+		}
+
 	}
 	return values;
 }
@@ -47,16 +108,37 @@ function formatRequestBody() {
 	return rb;
 }
 
-function getResult() {
+function sendBoardValues() {
+	getResult(formatRequestBody());
+}
+
+function getResult(rq) {
 	makeRequest("POST", "", function() {
-		let responseJson = JSON.parse(this.responseText);
+		let rj = JSON.parse(this.responseText);
 		if (this.readyState == 4 && this.status == 200) {
-			console.log(responseJson)
+			fillResultInBoard(rj);
 		} else {
-			let rj = JSON.parse(this.responseText);
 			errorHandler(rj);
 		}
-	}, formatRequestBody());
+	}, rq);
+}
+
+
+
+function fillResultInBoard(result) {
+	resultAttempts.innerHTML = result.attempts;
+	for (let i = 0; i < 81; i++) {
+		let cell = document.getElementById("cell-" + i);
+		let value = result.cells[i];
+		if (value < 1 || value > 9)
+			cell.value = "";
+		else
+			cell.value = value;
+		cell.disabled = true;
+	}
+	alert("Resultado " + (result.solved ? "" : "nao") + " encontrado apos " + result.attempts + " tentativas");
+	resultAttempts.innerHTML = result.attempts;
+	resultAttempts.style.backgroundColor = result.solved ? "#0F0" : "#F00";
 }
 
 function makeRequest(method, url, onloadend, data) {
