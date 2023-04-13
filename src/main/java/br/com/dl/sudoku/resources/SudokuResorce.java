@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.dl.sudoku.dto.CellsValuesDTO;
 import br.com.dl.sudoku.dto.ResultDTO;
 import br.com.dl.sudoku.facade.Sudoku;
 
@@ -19,7 +20,7 @@ public class SudokuResorce {
 	private Sudoku sudoku;
 	
 	@PostMapping()
-	public ResponseEntity<ResultDTO> solve(@RequestBody List<Integer> cells, @RequestBody int attempts) {
-		return ResponseEntity.ok().body(new ResultDTO(sudoku.initSudoku(cells, attempts)));
+	public ResponseEntity<ResultDTO> solve(@RequestBody CellsValuesDTO cells) {
+		return ResponseEntity.ok().body(new ResultDTO(sudoku.initSudoku(cells.getCells(), cells.getAttempts())));
 	}
 }

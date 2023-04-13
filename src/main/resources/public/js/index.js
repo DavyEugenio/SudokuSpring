@@ -35,7 +35,7 @@ function getCellValues() {
 	let values = []; 
 	for(let i=0; i<81; i++){
 		let value = document.getElementById("cell" + i).value; 
-		values += (value <= 9 && value >= 0)? value: 0;
+		values.push((value <= 9 && value >= 0)? value: 0);
 	}
 	return values;
 }
