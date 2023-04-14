@@ -15,6 +15,7 @@
 body {
 	display: flex;
 	flex: 1;
+	flex-direction: row;
 }
 
 #about-container {
@@ -22,16 +23,21 @@ body {
 	padding: 2rem 4rem;
 }
 
+#about-container p {
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+}
+
 #brand {
 	display: flex;
 	align-items: center;
-	font-size: 2rem;
+	font-size: 1rem;
 	margin-bottom: 1rem;
 
 }
 
 #brand h1 {
-	font-size: 3rem;
+	font-size: 1.4rem;
 	margin-left: 30px;
 
 }
@@ -41,11 +47,10 @@ body {
 	margin-right: 0.6;
 }
 
-#description {
+#intro {
 	max-width: 500px;
 	margin-bottom: 1rem;
 	line-height: 1.4rem;
-	font-size: 3rem;
 }
 
 #user-container {
@@ -59,8 +64,8 @@ body {
 	padding: 1rem;
 	width: 180px;
 	text-align: center;
-
 	overflow: hidden;
+	bottom: 2rem;
 }
 
 .user-img {
@@ -158,11 +163,19 @@ td input {
 	color: #111;
 }
 
+
 .sidenav .sidenav-item:hover {
 	background-color: #555;
 	color: #111;
 }
+.sidenav label {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding: 1rem;
+	text-align: left;
+	font-size: 1rem;
 
+}
 .linha {
 	position: absolute;
 	display: none;
@@ -187,3 +200,75 @@ td input {
 #iFile {
 	display: none;
 }
+
+
+.about-project {
+	padding-top: 630px;
+	margin: 4rem;
+	position: absolute;
+	flex: block;
+	flex-direction: column;
+	flex: 1.6;
+	padding-left: 1rem;
+	padding-bottom: 5rem;
+
+}
+#description {
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+.about-project h4 {
+	font-size: 1.6rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.about-project p {
+	text-indent: 1.5em;
+	text-align: auto;
+	font-size: 1.2rem;
+	width: 800px;
+}
+
+#sudoku-img {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+	
+}
+
+.figura-sudoku {
+	text-align: center;
+}
+.figura-sudoku img {
+	width: 180px;
+	height: 180px;
+}
+#img1 {
+	width: 190px;
+	height: 190px;
+}
+#sudoku figcaption {
+	font-weight: bold;
+	margin-bottom: 0.6rem;
+	font-size: 0.9rem;
+}
+#desc1 {
+	padding-top: 10px;
+}
+
+#figura-sudoku {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+}
+#figura-sudoku img {
+	width: 180px;
+	height: 180px;
+}
+

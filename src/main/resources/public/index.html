@@ -13,11 +13,10 @@
 <body onload="createCells()">
 	<div id="about-container">
 		<div id="brand">
-
 			<img src="imgs/sudoku.jpg" alt="Sudoku">
 			<h1>Solução do Sudoku</h1>
 		</div>
-		<p id="description">Projeto feito por Davy Eugenio e Luann Ferreira para disciplina de Analise e Estruturas de
+		<p id="intro">Projeto feito por Davy Eugenio e Luann Ferreira para disciplina de Analise e Estruturas de
 			Dados</p>
 
 		<p>Programadores: </p>
@@ -37,19 +36,15 @@
 
 		</div>
 	</div>
-	<h2>pq n funciona hein?	</h2>
-	<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-	<h1>	</h1>
+
 	<div id="side-container">
 		<h3>Insira um desafio: </h3>
 		<form class="board">
 			<table id="board" class="board-table"></table>
 		</form>
 	</div>
-	<style>
-		
-	</style>
 	<div class="sidenav">
+		<label for="iAttempts">Número de Tentativas</label>
 		<input id="iAttempts" class="sidenav-item" type="number" placeholder="N° de Tentativas" value="10">
 		<div id="btnSend" class="sidenav-item" onclick="sendBoardValues()">Enviar</div>
 		<div id="btnReset" class="sidenav-item" onclick="reset()">Limpar</div>
@@ -59,6 +54,68 @@
 			<div id="caminho"></div>
 			<label>Tentativas:</label>
 			<p id="resultAttempts">-</p>
+		</div>
+	</div>
+	<div class="about-project">
+		<div id="description">
+			<h4>Descrição: </h4>
+			<p>O objetivo desse projeto é desenvolver um algoritmo que soluciona problemas de Sudoku,
+			utilizando  Grafos, em específico o grafo Welsh-Powel.
+			Basicamente o usuário insere uma entrada com valores de 1 a 9, nas casas desejadas, e o algoritmo
+		tentará resolver o sudoku. </p>
+		</div>
+		<div id="grafo">
+			<h4>Sobre o algoritmo Welsh-Powel e a Coloração de Grafos</h4>
+			<p>É um algoritmo guloso proposto por Welsh-Powel (1975), 
+				ele determina a cor do vértice i após os j-1 vértices terem sido coloridos,
+				 tendo sempre como propósito minimizar o número de cores necessárias.</p>
+		</div>
+
+		<div id="sudoku">
+			<h4>Sudoku</h4>
+			<p>Sudoku é um jogo do gênero puzzle (quebra-cabeça), projetado por Howard Gams, um arquiteto e construtor independente de puzzles.
+			O jogo consiste em uma grade de tamanho n &times; n e n blocos do tamanho  n<sup>1/2</sup> &times; n<sup>1/2</sup>, sendo n =  i<sup>2</sup> ei &in; N<sup>+</sup>. </p>
+			<p>A grade vem com alguns quadrados já preenchidos, e o objetivo é preencher o restante com números de 1 a 9, sem repetir
+				números nas linhas, colunas ou blocos.</p>
+				
+				<div id="sudoku-img">
+					<div class="figura-sudoku">
+						<figure>
+							<img id="img1" src="imgs/nao-resolvido.jpeg" alt="Ilustração Sudoku não resolvido">
+							<figcaption class="img-description">Ilustração do jogo </figure>
+						</figure>
+					</div>
+					<div class="figura-sudoku">
+						<figure>
+							<img src="imgs/resolvido.jpeg" alt="Ilustração Sudoku resolvido">
+							<figcaption id="desc1" class="img-description">Exemplo de Sudoku resolvido </figure>
+						</figure>
+					</div>
+				</div>
+				
+			<h4>Transformando o Sudoku em um Grafo</h4>
+			<p>O Sudoku é um tabuleiro com 81 células, associando a grafos, podemos considerar cada célula como um vértice.
+				Dois vértices estão conectados se: eles estão na mesma coluna, fileira ou bloco.com isso teremos as arestas. Com isso, temos um grafo do Sudoku.
+			</p>
+			<p>Considere agora o Sudoku 9 &times; 9, onde cada vértice está ligado a outros 20 vértices, pois cada
+				vértice ter cor diferente dos 20 vértices ligados a ele (vértices adjacentes).
+			Com isso, teremos o total de 810 arestas. Veja a figura abaixo para melhor Ilustração: </p>
+			<div id="figura-sudoku">
+				<figure>
+					<img src="imgs/modelagem.jpeg" alt="Modelagem de um Sudoku 9 &times; 9 em um grafos simples">
+					<figcaption >Modelagem de um Sudoku 9 &times; 9 em um grafos simples"</figure>
+				</figure>
+			</div>
+			<p>Para adaptar ao agoritmo proposto, podemos considerar cada número como uma cor diferente,
+				para então ser possível a aplicação da teoria de Coloração de vizinhos. Para solucionar o Sudoku com 
+				esse algoritmo, precisa ser garantido que dois vértices da mesma cor não sejam vizinhos.
+			</p>
+			<p>O algoritmo atribuirá a todos os nós vazios todas as cores possíveis (1-9), para com isso verificar a cor de
+				seus vizinhos e retirando de sua lista de possíveis cores.
+				Com isso, no final podemos atribuir as cores possíveis aos nós e ir completando o taabuleiro.
+			</p>
+			<p>O Welsh-Powel é um algoritmo que serve para decidir como pintar os nós. Ele verifica o status de um nó para saber se ele já foi pintado ou pode ser pintado.
+				 Caso ele precise ser pintado ele verifica os vizinhos para decidir qual a cor.</p>
 		</div>
 	</div>
 </body>
